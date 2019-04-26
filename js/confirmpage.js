@@ -182,8 +182,9 @@ $(function () {
 			name = $(this).attr('data-name');
 			idCard = $(this).attr('data-idcard');
 			phoneNum = $(this).attr('data-phone');
-			
-			console.log($("#normal_passenger_id :checkbox").length);
+			var index = $("#normal_passenger_id :checkbox:checked").length;
+
+
 			// 3 5 6
 			// 第一步克隆
 			$("#ticketInfo_id").children('.tr_id_1').eq(0).clone()
@@ -191,6 +192,7 @@ $(function () {
 			// 接着修改value
 			$("#ticketInfo_id").find('tr[name='+ name +']')
 				.children('td').eq(3).find('input').val(name)
+				.parents('tr').children('td').eq(0).html(index)
 				.parents('tr').children('td').eq(5).find('input').val(idCard)
 				.parents('tr').children('td').eq(6).find('input').val(phoneNum)
 			
