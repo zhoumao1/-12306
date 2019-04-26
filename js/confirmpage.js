@@ -108,7 +108,7 @@ $(function () {
 	}
 	if (url.id == undefined) { // 是否进入预订
 		$('#submitOrder_id').click(function () {
-			// 是否有信息提交
+			// 是否有信息提交111
 			if ($('#normal_passenger_id :checkbox').is(':checked')) {
 				$('.show').show();
 				var d=new Date()
