@@ -4,7 +4,7 @@ $(function () {
 	var $loginPwd = $('#login-pwd'); // 登录密码
 	var $registName = $('#regist-name'); // 注册用户名
 	var $registPwd = $('#regist-pwd'); // 注册密码
-	var reg = /^[z-z0-9_-]{3,5}$/ // 用户名正则
+	var reg = /^[a-z0-9_-]{3,5}$/ // 用户名正则
 	var $regist = $('#regist'); // 注册
 	var $login = $("#login"); // 登录
 	$li.click(function () {
