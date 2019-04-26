@@ -7,7 +7,7 @@ $uid = $_POST['uid'];
 $link = new mysqli('localhost', 'root', 'root', 'ticket_info');
 $link ->set_charset('utf8');
 // 执行查询操作
-$sql = "select * from ". $uid ."_admin where uid='$uid'";
+$sql = "select * from ". $uid ."_admin where uid='$uid' order by id desc";
 $res = $link ->query($sql);
 if (!$res) {
 	die('错误信息: '. $link ->error);
