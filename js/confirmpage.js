@@ -124,7 +124,8 @@ $(function () {
 				var time = (trips.date.split('-')).join('');
 				var str = Math.floor(Math.random()*1000) + '';
 				trips.dingdNum = Math.floor(2019420+str);
-				submit(trips.tid, uid, trips.num, trips.fromCity, trips.toCity, trips.fromTime, trips.price, trips.names, trips.date, trips.dingdNum, trips.zuo, trips.zuoEng);
+				console.log(trips);
+				// submit(trips.tid, uid, trips.num, trips.fromCity, trips.toCity, trips.fromTime, trips.price, trips.names, trips.date, trips.dingdNum, trips.zuo, trips.zuoEng);
 			}
 		})
 	}
@@ -160,6 +161,10 @@ $(function () {
 			name = $(this).attr('data-name');
 			idCard = $(this).attr('data-idcard');
 			phoneNum = $(this).attr('data-phone');
+			/**
+			 * TODO: 实现购买多张票
+			 */
+			$('#ticketInfo_id').children('.tr_id_1').eq(0).clone().appendTo('#ticketInfo_id').find('.pos-rel').children('input').val(name)
 			$("#passenger_name_1").val(name);
 			$("#passenger_id_no_1").val(idCard);
 			$("#phone_no_1").val(phoneNum);
