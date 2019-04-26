@@ -1,0 +1,148 @@
+@import './base.css';
+@import './same.css';
+*{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+section{
+	height: 600px;
+	overflow: hidden;
+	position: relative;
+	height: 600px;
+	margin-bottom: -40px;
+}
+section .bd {
+	position: relative;
+	height: 600px;
+	margin-left: -223px;
+}
+section .bd li{
+	background: rgba(0, 0, 0, 0) url("https://www.12306.cn/index/images/pic/banner-login.jpg") no-repeat scroll center center;
+	float: left;
+	width: 1648px;
+}
+.bd a {
+	display: block;
+	height: 600px;
+}
+footer{
+	background: #fff;
+}
+/* 登录盒子 */
+.login-box {
+	background: #fff;
+	width: 380px;
+}
+.login-box {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: 215px;
+	/* margin-top: -283px; */
+	margin-top: -267.5px;
+}
+.login-box .login-hd {
+	height: 78px;
+	line-height: 78px;
+	padding: 0 30px;
+	box-sizing: border-box;
+	display: flex;
+}
+.login-box .login-hd li {
+	flex: 1;
+	width: 130px;
+	text-align: center;
+	position: relative;
+}
+.login-box .login-hd a {
+	display: block;
+	color: #666;
+	font-size: 16px;
+	text-align: center;	
+	transition: .3s linear color;
+}
+.login-box .login-hd .active a {
+	color: #3B99FC;
+}
+/* 登录主内容 */
+.login-account {
+	padding: 0 30px 15px 30px;
+}
+.login-account .login-item {
+	position: relative;
+	height: 30px;
+	margin-bottom: 16px;
+}
+.login-account .login-item .item-label {
+	position: absolute;
+	top: 5px;
+	left: 8px;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	color: #dadada;
+	z-index: 10;
+}
+.login-account .login-item .input {
+	display: block;
+	width: 100%;
+	height: 30px;
+	padding-left: 36px;
+}
+.login-box .input {
+	height: 30px;
+	line-height: 20px;
+	border: 1px solid #EFEFEF;
+	padding: 4px 10px;
+	color: #333;
+	background-color: #fff;
+	color: #333;
+	outline: none;
+	font-size: 14px;
+	border-radius: 0;
+	vertical-align: middle;
+	box-sizing: border-box;
+	transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+}
+.input-action{
+	box-shadow: 0 0 4px 0px #3b99fc;
+}
+.login-box .btn.form-block {
+	display: block;
+	width: 100%;
+	border-radius: 6px;
+	font-size: 16px;
+	background: #ff8201;
+	color: #fff;
+	border-color: #ff8201;
+	margin-top: 20px;
+}
+.login-box .btn{
+	min-width: 80px;
+	height: 30px;
+	line-height: 20px;
+	padding: 4px 10px;
+	border: 1px solid #EFEFEF;
+	transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s,color ease-in-out .15s, background ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+}
+.login-account .login-txt {
+	text-align: center;
+	line-height: 20px;
+	margin-top: 10px;
+	color: #666;
+}
+.login-account .login-txt a {
+	margin: 0 5px;
+}
+.login-ft {
+	padding: 10px 20px 15px;
+	font-size: 13px;
+	color: #666;
+	border-top: 1px solid #EFEFEF;
+}
+/* 注册的主内容 */
+.registered-bd{
+	display: none;
+}

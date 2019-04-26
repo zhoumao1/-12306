@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>12306列车列表</title>
+	<link rel="stylesheet" href="../css/trainlist.css" />
+	<script src="../lib/jq.js"></script>
+	<script src="../lib/underscore.js"></script>
+	<script src="../lib/func.js"></script>
+	<script src="../js/same.js"></script>
+	<script src="../lib/laydate/laydate.js"></script>
+
+</head>
+
+<body>
+	<!-- 加载区域 -->
+	<div class="show" style="display: none;">
+		<img src="../img/loading3.gif" alt="">
+	</div>
+	<!-- 头部 -->
+	<header>
+		<div class="w clearfix">
+			<div class="header-con">
+				<h1 class="logo">
+					<a href="index.html"></a>
+				</h1>
+				<!-- 右侧内容 -->
+				<div class="header-right">
+					<div class="header-search">
+						<form action="" method="post">
+							<input type="text" name="" id="search-input" placeholder="搜索车票/餐饮/常旅客/相关规章" />
+							<a href="javascript:;" id="search-btn">
+								<!-- TODO: 缺少搜索图 -->
+							</a>
+						</form>
+					</div>
+					<!-- 头部右侧菜单 -->
+					<ul class="header-menu">
+						<li class="menu-item menu-nav" id="slide-menu">
+							<a href="#" class="menu-nav-hd">我的12306
+								<i class="caret">
+									<!-- 三角 --></i>
+							</a>
+							<ul class="menu-nav-bd">
+								<li><a href="#">火车票订单</a></li>
+								<li><a href="#">候补订单</a></li>
+								<li><a href="#">我的行程</a></li>
+								<li class="nav-line"></li>
+								<li><a href="#">我的餐饮•特产</a></li>
+								<li><a href="#">我的保险</a></li>
+								<li><a href="#">我的会员</a></li>
+								<li class="nav-line"></li>
+								<li><a href="#">查看个人信息</a></li>
+								<li><a href="#">账户安全</a></li>
+								<li class="nav-line"></li>
+								<li><a href="#">常用联系人</a></li>
+								<li><a href="#">车票快递地址</a></li>
+								<li class="nav-line"></li>
+								<li><a href="#">温馨服务查询</a></li>
+							</ul>
+						</li>
+						<li class="menu-item menu-line">|</li>
+						<li class="menu-item menu-login">
+							<a href="login.html">登录</a>
+							<a href="login.html">注册</a>
+						</li>
+						<li class="menu-item menu-login" id="Cookflag" style="display: none;">
+							<a href="admin.html">
+								欢迎 
+								<b style="color: #3B99FC;" id="user-name">jr</b>
+								登录
+							</a>
+						</li>
+						<li class="menu-item menu-line" id="loginOut-line" style="display: none;">|</li>
+						<li class="menu-item menu-login">
+							<a href="javascript:;" style="color:hotpink;display:none" id="loginOut" >退出</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- 导航 -->
+		<nav>
+			<ul class="nav">
+				<li class="nav-item nav-item-w1">
+					<a href="#" class="nav-hd">首页</a>
+				</li>
+				<li class="nav-item nav-item-w1">
+					<a href="#" class="nav-hd">车票<i class="icon"></i></a>
+					<!-- 下拉内容 -->
+					<div class="nav-bd" id="nav-hd"></div>
+					<script type="text/html" id="nav-temp">
+              <% for (var i = 0; i < navData.length; i++) { %>
+              	<div class="nav-bd-item nav-col2">
+              		<h3 class="nav-tit"><%= navData[i].h3%></h3>
+              		<ul class="nav-con clearfix">
+              			<li class="nanv_dan">
+              				<a href="#"><%= navData[i].linkContent.one%></a>
+              			</li>
+              			<li class="nav_wang">
+              				<a href="#"><%= navData[i].linkContent.two%></a>
+              			</li>
+              			<li>
+              				<a href="#"><%= navData[i].linkContent.three%></a>
+              			</li>
+              		</ul>
+              	</div>
+              	<% } %>
+            </script>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">团购服务<i class="icon"></i></a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">会员服务<i class="icon"></i></a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">站车服务<i class="icon"></i></a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">商旅服务<i class="icon"></i></a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">出行指南<i class="icon"></i></a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">信息查询<i class="icon"></i></a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+	<!-- 列表内容 -->
+	<section>
+		<div class="w clearfix">
+			<div class="sear-box">
+				<!-- ../trainlist.php -->
+				<form action="" method="POST" id="selectFrom">
+					<div class="s-info" id="place_area" style="display: flex;">
+						<ul class="clearfix" style="flex: 2">
+							<li>
+								<span class="label">
+									<label id="fromStationText_label">出发地</label>
+								</span>
+								<div class="inp-w">
+									<input type="text" id="fromStationText" class="inp-txt" value=""
+										name="fromCity" />
+									<span class="i-city" id="fromStation_icon_image" style="cursor: pointer;"></span>
+								</div>
+							</li>
+							<li class="i-change i-change2" id="change_station"
+								style="background-position: -67px -96px; cursor: pointer;"></li>
+							<li>
+								<span class="label"><label id="toStationText_label"> 目的地</label>
+								</span>
+								<div class="inp-w">
+									<input type="text" id="toStationText" class="inp-txt inp_selected" value=""
+										name="toCity" />
+									<span class="i-city" id="toStation_icon_image" style="cursor: pointer;"></span>
+								</div>
+							</li>
+							<li>
+								<span class="label"> 出发日</span>
+								<div class="inp-w" style="z-index:1200">
+									<!-- 不要更改ID -->
+									<input type="text" class="inp_selected demo-input" name="" id="train_date" value=""
+										readonly="readonly" placeholder="请选择日期" />
+									<span id="date_icon_1" class="i-date"></span>
+								</div>
+							</li>
+							<!-- TODO: 返程 -->
+							<!-- <li class="no-change">
+								<span class="label"> 返程日</span>
+								<div class="inp-w" id="back_div" style="z-index:1100">
+									<input type="text" class="inp-txt" name="back_train_date" id="back_train_date" value=""
+										readonly="readonly" disabled="disabled" />
+									<span id="date_icon_2" class="i-date"></span>
+								</div>
+							</li> -->
+						</ul>
+						<!-- 查询 -->
+						<div class="quick-s" style="flex: 1">
+							<ul>
+								<li>
+									<input type="radio" id="sf1" class="radio" name="sf" checked="checked">
+									<label id="sf1_label" for="sf1" class="cursor">普通</label>
+								</li>
+								<li>
+									<input type="radio" id="sf2" class="radio" name="sf">
+									<label id="sf2_label" for="sf2" class="cursor">学生</label>
+								</li>
+							</ul>
+							<div class="btn-area"><button type="submit" id="query_ticket" class="btn92s" shape="rect">查询</button>
+								<div><input id="auto_query" type="checkbox" class="check" style="margin-right:0px;">
+									<label id="autoQueryTxt" for="auto_query" style="cursor: pointer;">开启自动查询</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<!-- 显示车次数量基本信息 -->
+			<div class="sear-result">
+				<p>
+					<strong>北京 --&gt; 上海（3月15日&nbsp;&nbsp;周五）</strong>
+					共计
+					<strong id="trainum">40</strong>个车次
+				</p>
+			</div>
+			<!-- 列表 -->
+			<div class="t-list">
+				<table>
+					<thead>
+						<tr class="th">
+							<th width="90">车次</th>
+							<th width="100">出发站<br>到达站</th>
+							<th width="82">出发时间<br>到达时间</th>
+							<th width="82">历时</th>
+							<th>商务座<br>特等座</th>
+							<th>一等座</th>
+							<th>二等座</th>
+							<th>高级<br>软卧</th>
+							<th>软卧<br>一等座</th>
+							<th>动卧</th>
+							<th>硬卧<br>二等卧</th>
+							<th>软座</th>
+							<th>硬座</th>
+							<th>无座</th>
+							<th>其他</th>
+							<th>备注</th>
+						</tr>
+					</thead>
+					<tbody id="queryLeftTable">
+						<!-- TODO: 动态传参 -->
+						<tr class="bgc">
+							<td colspan="4" width="370">
+								<div class="ticket-info clearfix">
+									<!-- 车次 -->
+									<div class="train">
+										<div>
+											<a href="#" class="number">G111</a>
+											<span class="i-card"></span>
+											<span class="lookup">
+												<b title="查看票价"></b>
+											</span>
+										</div>
+									</div>
+									<div class="cdz">
+										<strong class="start-s">北京南</strong>
+										<strong class="end-s">上海虹桥</strong>
+									</div>
+									<div class="cds">
+										<strong class="start-t">08:35</strong>
+										<strong class="color999">14:22</strong>
+									</div>
+									<div class="ls">
+										<strong>05:47</strong>
+									</div>
+								</div>
+							</td>
+							<td class="t-num">
+								11
+							</td>
+							<td>222</td>
+							<td>222</td>
+							<td>222</td>
+							<td>222</td>
+							<td>222</td>
+							<td>222</td>
+							<td>222</td>
+							<td>222</td>
+							<td>222</td>
+							<td>222</td>
+							<td class="no-br" width="80">
+								<button >预定</button>
+							</td>
+						</tr>
+						<tr class="bgc bgc-price" id="train-price" style="display: none;">
+							<td colspan="4" width="370"></td>
+							<td class="t-num">
+
+							</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td class="no-br" width="80"></td>
+						</tr>
+					</tbody>
+					<!-- 模板 -->
+					<script type="text/html" id="train-list-temp">
+						<input type="hidden" name="tid" value="" id="hid">
+						<% $.each(result, function (k, v) { %>
+							<tr class="bgc" data-tid="<%= v.tid %>">
+								<td colspan="4" width="370">
+									<div class="ticket-info clearfix">
+										<!-- 车次 -->
+										<div class="train">
+											<div>
+												<a href="#" class="number"><%= v.num %></a>
+												<span class="i-card"></span>
+												<span class="lookup">
+													<b title="查看票价"></b>
+												</span>
+											</div>
+										</div>
+										<div class="cdz">
+											<strong class="start-s"><%= v.fromCity %></strong>
+											<strong class="end-s"><%= v.toCity %></strong>
+										</div>
+										<div class="cds">
+											<strong class="start-t"><%= v.fromTime %></strong>
+											<strong class="color999"><%= v.toTime %></strong>
+										</div>
+										<div class="ls">
+											<strong><%= v.usedTime %></strong>
+										</div>
+									</div>
+								</td>
+								<td class="t-num">
+									<%= v.businessClass %>
+								</td>
+								<td><%= v.firstClass %></td>
+								<td><%= v.secondClass %></td>
+								<td><%= v.gjSortSleeper %></td>
+								<td><%= v.fcSortsleeper %></td>
+								<td><%= v.dSleeper %></td>
+								<td><%= v.schardSleeper %></td>
+								<td><%= v.sortClass %></td>
+								<td><%= v.hardClass %></td>
+								<td><%= v.noClass %></td>
+								<td><%= v.other %></td>
+								<td class="no-br" width="80">
+									<button class="scheduled">预定</button>
+								</td>
+							</tr>
+							<tr class="bgc bgc-price" id="train-price" style="display: none;">
+								<td colspan="4" width="370"></td>
+								<td class="t-num">
+										<%= v.p1 %>
+								</td>
+								<td><%= v.p2 %></td>
+								<td><%= v.p3 %></td>
+								<td><%= v.p4 %></td>
+								<td><%= v.p5 %></td>
+								<td><%= v.p6 %></td>
+								<td><%= v.p7 %></td>
+								<td><%= v.p8 %></td>
+								<td><%= v.p9 %></td>
+								<td><%= v.p10 %></td>
+								<td class="no-br" width="80"></td>
+								<td class="no-br" width="80"></td>
+							</tr>
+						<% })%>
+					</script>
+				</table>
+
+			</div>
+		</div>
+	</section>
+	<!-- 底部 -->
+	<footer>
+		<div class="w clearfix">
+			<div class="foot-links" style="margin-right: 20px;">
+				<h2 class="foot-con-tit">友情链接</h2>
+				<ul class="foot-links-list clearfix">
+					<li>
+						<a href="#"><img src="../img/foot-links-list-01.png" alt="" /></a>
+					</li>
+					<li>
+						<a href="#"><img src="../img/foot-links-list-02.png" alt="" /></a>
+					</li>
+					<li>
+						<a href="#"><img src="../img/foot-links-list-03.png" alt="" /></a>
+					</li>
+					<li>
+						<a href="#"><img src="../img/foot-links-list-04.png" alt="" /></a>
+					</li>
+				</ul>
+			</div>
+			<ul class="foot-code"></ul>
+			<script type="text/html" id="foot-code-temp">
+          <% for (var i = 0; i < data.length; i++) { %>
+          	<li style="width: 140px;">
+          	<h2 class="foot-con-tit"><%= data[i].h2%></h2>
+          	<div class="code-pic"><img src="../img/<%= data[i].img%>" alt=""></div>
+          </li>
+          <% } %>
+        </script>
+		</div>
+		<div class="footer-txt">
+			<p>
+				<span class="mr">版权所有©2008-2018</span>
+				<span class="mr">中国铁路信息科技有限责任公司</span>
+				<span>中国铁道科学研究院集团有限公司</span>
+			</p>
+			<p>
+				<span class="mr">京ICP备15003716号-3</span>
+				<span class="mr">|</span>
+				<span>京ICP证150437号</span>
+			</p>
+		</div>
+	</footer>
+	<script src="../js/trainlist.js"></script>
+	<script src="../js/getResult.js"></script>
+</body>
+
+</html>

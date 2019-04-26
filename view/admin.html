@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>个人中心</title>
+	<script src="../lib/func.js"></script>
+	<script src="../lib/jq.js"></script>
+	<script src="../lib/underscore.js"></script>
+	<link rel="stylesheet" href="../css/admin.css" />
+</head>
+
+<body>
+	<header>
+		<div class="w clearfix">
+			<div class="header-con">
+				<h1 class="logo">
+					<a href="index.html"></a>
+				</h1>
+				<!-- 右侧内容 -->
+				<div class="header-right">
+					<div class="header-search">
+						<form action="" method="post">
+							<input type="text" name="" id="search-input" placeholder="搜索车票/餐饮/常旅客/相关规章" />
+							<a href="javascript:;" id="search-btn">
+								<!-- TODO: 缺少搜索图 -->
+							</a>
+						</form>
+					</div>
+					<!-- 头部右侧菜单 -->
+					<ul class="header-menu">
+						<li class="menu-item menu-nav" id="slide-menu">
+							<a href="#" class="menu-nav-hd">我的12306
+								<i class="caret">
+									<!-- 三角 --></i>
+							</a>
+							<ul class="menu-nav-bd">
+								<li><a href="#">火车票订单</a></li>
+								<li><a href="#">候补订单</a></li>
+								<li><a href="#">我的行程</a></li>
+								<li class="nav-line"></li>
+								<li><a href="#">我的餐饮•特产</a></li>
+								<li><a href="#">我的保险</a></li>
+								<li><a href="#">我的会员</a></li>
+								<li class="nav-line"></li>
+								<li><a href="#">查看个人信息</a></li>
+								<li><a href="#">账户安全</a></li>
+								<li class="nav-line"></li>
+								<li><a href="#">常用联系人</a></li>
+								<li><a href="#">车票快递地址</a></li>
+								<li class="nav-line"></li>
+								<li><a href="#">温馨服务查询</a></li>
+							</ul>
+						</li>
+						<li class="menu-item menu-line">|</li>
+						<li class="menu-item menu-login">
+							<a href="login.html">登录</a>
+							<a href="login.html">注册</a>
+						</li>
+						<li class="menu-item menu-login" id="Cookflag" style="display: none;">
+							<a href="admin.html">
+								欢迎 
+								<b style="color: #3B99FC;" id="user-name"></b>
+								登录
+							</a>
+						</li>
+						<li class="menu-item menu-line" id="loginOut-line" style="display: none;">|</li>
+						<li class="menu-item menu-login">
+							<a href="javascript:;" style="color:hotpink;display:none" id="loginOut" >退出</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- 导航 -->
+		<nav>
+			<ul class="nav">
+				<li class="nav-item nav-item-w1">
+					<a href="#" class="nav-hd">首页</a>
+				</li>
+				<li class="nav-item nav-item-w1">
+					<a href="#" class="nav-hd">车票<i class="icon"></i></a>
+					<!-- 下拉内容 -->
+					<div class="nav-bd" id="nav-hd"></div>
+					<script type="text/html" id="nav-temp">
+              <% for (var i = 0; i < navData.length; i++) { %>
+              	<div class="nav-bd-item nav-col2">
+              		<h3 class="nav-tit"><%= navData[i].h3%></h3>
+              		<ul class="nav-con clearfix">
+              			<li class="nanv_dan">
+              				<a href="#"><%= navData[i].linkContent.one%></a>
+              			</li>
+              			<li class="nav_wang">
+              				<a href="#"><%= navData[i].linkContent.two%></a>
+              			</li>
+              			<li>
+              				<a href="#"><%= navData[i].linkContent.three%></a>
+              			</li>
+              		</ul>
+              	</div>
+              	<% } %>
+            </script>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">团购服务<i class="icon"></i></a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">会员服务<i class="icon"></i></a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">站车服务<i class="icon"></i></a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">商旅服务<i class="icon"></i></a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">出行指南<i class="icon"></i></a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">信息查询<i class="icon"></i></a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+	<div class="show" style="display: none;">
+		<img src="../img/loading3.gif" alt="">
+	</div>
+	<section>
+		<div class="w clearfix" style="min-height: 101px;">
+			<!-- 面包屑 -->
+			<div class="breadcrumb">
+				当前位置：<a href="./admin.html">个人中心</a>
+			</div>
+			<!-- 个人中心 -->
+			<div class="center-box">
+				<!-- 个人中心左侧 -->
+				<!-- 个人中心左侧菜单 -->
+				<ul class="center-menu">
+					<li class="menu-item" id="gerenzhongxin">
+						<h2 class="menu-tit">
+							<a href="./index.html">个人中心</a>
+						</h2>
+					</li>
+					<li class="menu-item">
+						<h2 class="menu-tit">订单中心<i class="icon icon-switch"></i></h2>
+						<ul class="menu-sub">
+							<li id="chepiaodingdan">
+								<a href="javascript:;">火车票订单</a>
+							</li>
+						</ul>
+					</li>
+
+					<li class="menu-item">
+						<h2 class="menu-tit">
+							常用信息管理<i class="icon icon-switch"></i>
+						</h2>
+						<ul class="menu-sub">
+							<li id="cylianxiren">
+								<a href="javascript:;">常用联系人</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<div class="center-main">
+					<!-- 待付款 、 未完成 、 历史订单-->
+					<div class="subway-order" style="display: block;">
+						<div class="panel-tab">
+							<div class="tab-hd">
+								<ul class="tab-hd-list" id="order_tab">
+									<li data-type="0" class="active">
+										<a href="javascript:;">未出行订单
+											<!-- <span class="txt-num" id="weichu_num"></span> -->
+										</a>
+									</li>
+								</ul>
+							</div>
+							<div class="tab-bd">
+								<div class="tab-item" style="min-height: 650px; display: block;">
+									<!-- 未出行订单列表 -->
+									<div class="order-panel order-panel-history">
+										<!-- 订单-搜索表单 -->
+
+										<div class="order-filter" style="margin-top: 20px">
+											<a href="javascript:;" class="active">全部</a>
+										</div>
+										<!-- 订单-订单列表头部 -->
+										<table class="order-panel-head title-text" style="display: table;">
+											<colgroup>
+												<col class="col-train" />
+												<col class="col-passenger" />
+												<col class="col-seat" />
+												<col class="col-price" />
+												<col class="col-state" />
+												<col />
+											</colgroup>
+											<tbody>
+												<tr>
+													<th>车次信息</th>
+													<th style="width: 200px">旅客信息</th>
+													<th>席位信息</th>
+													<th>票价</th>
+													<th>车票状态</th>
+													<!-- <th>总金额</th> -->
+												</tr>
+											</tbody>
+										</table>
+										<div id="orderNull" class="msg msg-null">
+											该用户暂无车票信息，<a href="./index.html" style="color: #3B99FC;">去预定</a>
+										</div>
+										<div id="not_travel">
+											<!-- 显示订单 -->
+											<div class="order-item">
+												
+											</div>
+										</div>
+										<div id="J-Trip" class="pagination mt-lg" style="display: block;">
+											<div class="page-all">共<strong>1</strong>页</div>
+											<ul class="page-num" id="page_mod">
+												<li class="active"><a href="javascript:;">1</a></li>
+											</ul>
+											<div class="page-skip">
+												到<input type="text" class="input" />页
+											</div>
+											<a href="javascript:;" class="btn page-btn" id="page_jump">确定</a>
+										</div>
+										<script type="text/html" id="page_temp">
+											<% $.each(pagData, function(k, v){ %>
+												<li class=""><a href="javascript:;" data-pageNum="<%= v %>"><%= v %></a></li>
+											<% }) %>
+										</script>
+										<div class="tips-box mt-lg duo-tips">
+											<h4 class="tips-tit ">温馨提示</h4>
+											<p>1.订单信息在本网站保存期限为30日。</p>
+											<p>
+												2.在本网站购票后，没有换取纸质车票的，可不晚于开车前30分钟在本网站办理改签、退票业务，或不晚于开车前48小时在本网站办理“变更到站”业务。
+											</p>
+											<p>3.在本网站办理退票，只能逐次单张办理。</p>
+											<p>
+												4.
+												车票改签、变更到站均只能办理一次。已经改签或变更到站的车票不再办理改签；对已改签车票、团体票暂不提供“变更到站”服务。
+											</p>
+											<p>
+												5.退票、改签、变更到站后，如有应退票款，按购票时所使用的在线支付工具相关规定，将在规定时间内退还至原在线支付工具账户，请及时查询。如有疑问，请致电12306人工客服查询。
+											</p>
+											<p>6.如需取消或查看车票快递状态，请点击“快递详情”。</p>
+											<p>
+												7.投保、退保或查看电子保单状态，请点击“我的保险”或“购/赠/退保险”。
+											</p>
+										</div>
+									</div>
+								</div>
+								<script type="text/html" id="dingdan-temp">
+									<% $.each(data, function(k, v){ %>
+										<div class="order-item-hd">
+											<i class="icon icon-fold"></i>
+											<div class="order-hd-info">
+												<span class="txt-light">订票日期：</span>
+												<span class="dingqiaoDate"><%= v.date %></span>
+											</div>
+											<div class="order-hd-info">
+												<span class="txt-light">订单号：</span><%= v.dingdNum %>
+											</div>
+										</div>
+										<div class="order-item-bd">
+											<table class="order-item-table" id="query_order_form_EE28312982">
+												<colgroup>
+													<col class="col-train" />
+													<col class="col-passenger" />
+													<col class="col-seat" />
+													<col class="col-price" />
+													<col class="col-state" />
+													<col />
+												</colgroup>
+												<tbody>
+													<tr class="has-order-num ">
+														<td class="td-left align-top" rowspan="1">
+															<div class="order-info-ticket">
+																<div class="txt-bold txt-lg">
+																	<%= v.fromCity %><i> --> </i><%= v.toCity %> <%= v.num %>
+																</div>
+																<div>
+																	<%= v.date %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																	<%= v.fromTime %> 开
+																</div>
+															</div>
+														</td>
+														<td style="width: 200px;">
+															<div class="passenger-operation">
+																<div><%= v.names %></div>
+																<div>中国居民身份证</div>
+															</div>
+														</td>
+														<td>
+															<div><%= v.zuo %></div>
+															<div><%= v.zuoNum %></div>
+														</td>
+														<td>
+															<div>成人票</div>
+															<div>
+																<span class="txt-price"><%= v.price %></span>
+															</div>
+														</td>
+														<td>
+															<div class="ticket-status-name">
+																<div>已支付</div>
+
+																<a href="http://127.0.0.1:8088//demo/12306/order-remove.php?id=<%= v.id %>&uid=<%= v.uid %>&tid=<%= v.tid %>&zuoEng=<%= v.zuoEng %>" class="txt-primary tuipiao">退票</a>
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td class="td-left br-none quanxuan">
+															<label class="check-inline"> </label>
+														</td>
+														<td colspan="6" class="order-operation">
+															<div class="btn-right">
+																<a href="javascript:void(0)" date-tid="<%= v.tid %>" date-id="<%= v.id %>" date-oldZuoEng="<%= v.zuoEng %>" date-toCity="<%= v.toCity %>" date-fromCity="<%= v.fromCity %>" class="btn resignTrain">改签</a>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									<% }) %>
+								</script>
+								<!-- 历史订单 -->
+								<div class="tab-item" style="display: none; min-height: 650px;">
+									<!-- 历史订单列表 -->
+									<div class="order-panel order-panel-history">
+										<!-- 订单-搜索表单 -->
+										<div class="search-form-mini">
+											<div class="form-item">
+												<div class="sel-inner">乘车日期</div>
+											</div>
+											<div class="form-item">
+												<div class="input-box input-data w160">
+													<input type="text" id="historyFromDate" class="input" value="" readonly="" />
+													<i class="icon icon-date" data-click="historyFromDate"></i>
+												</div>
+												<span class="txt-lighter"> - </span>
+												<div class="input-box input-data w160">
+													<input type="text" id="historyToDate" class="input" value="" readonly="" />
+													<i class="icon icon-date" data-click="historyToDate"></i>
+												</div>
+											</div>
+											<div class="form-item">
+												<div class="input-box input-data w160">
+													<input type="text" class="input" placeholder="订单号/车次/姓名" id="historyName" />
+													<i class="icon icon-clear"></i>
+												</div>
+											</div>
+											<div class="form-item">
+												<a href="javascript:;" class="btn w100" id="searchHistory">查询</a>
+											</div>
+										</div>
+										<!-- 订单-订单列表头部 -->
+										<table class="order-panel-head title-text" style="display: table;">
+											<colgroup>
+												<col class="col-train" />
+												<col class="col-passenger" />
+												<col class="col-seat" />
+												<col class="col-price" />
+												<col class="col-state" />
+												<col />
+											</colgroup>
+											<tbody>
+												<tr>
+													<th>车次信息</th>
+													<th style="width: 200px">旅客信息</th>
+													<th>席位信息</th>
+													<th>票价</th>
+													<th>车票状态</th>
+													<!-- <th>总金额</th> -->
+												</tr>
+											</tbody>
+										</table>
+										<div id="history_travel"></div>
+										<div id="J-History" class="pagination mt-lg" style="display: none;"></div>
+
+										<div class="tips-box mt-lg duo-tips">
+											<h4 class="tips-tit">温馨提示</h4>
+											<p>1.订单信息在本网站保存期限为30日。</p>
+											<p>
+												2.在本网站购票后，没有换取纸质车票的，可不晚于开车前30分钟在本网站办理改签、退票业务，或不晚于开车前48小时在本网站办理“变更到站”业务。
+											</p>
+											<p>3.在本网站办理退票，只能逐次单张办理。</p>
+											<p>
+												4.
+												车票改签、变更到站均只能办理一次。已经改签或变更到站的车票不再办理改签；对已改签车票、团体票暂不提供“变更到站”服务。
+											</p>
+											<p>
+												5.退票、改签、变更到站后，如有应退票款，按购票时所使用的在线支付工具相关规定，将在规定时间内退还至原在线支付工具账户，请及时查询。如有疑问，请致电12306人工客服查询。
+											</p>
+											<p>6.如需取消或查看车票快递状态，请点击“快递详情”。</p>
+											<p>
+												7.投保、退保或查看电子保单状态，请点击“我的保险”或“购/赠/退保险”。
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 暂无数据 -->
+						<div class="panel-tab" id="noDataDom" style="display:none;">
+							<div class="tab-bd">
+								<!-- 历史订单 -->
+								<div class="tab-item" style="display: block; min-height: 650px;">
+									<!-- 历史订单列表 -->
+									<div class="order-panel order-panel-history">
+										<!-- 订单-订单列表头部 -->
+										<table class="order-panel-head title-text" style="display: table;">
+											<colgroup>
+												<col class="col-train" />
+												<col class="col-passenger" />
+												<col class="col-seat" />
+												<col class="col-price" />
+												<col class="col-state" />
+												<col />
+											</colgroup>
+											<tbody>
+												<tr>
+													<th>车次信息3</th>
+													<th style="width: 200px">旅客信息</th>
+													<th>席位信息</th>
+													<th>票价</th>
+													<th>车票状态</th>
+													<!-- <th>总金额</th> -->
+												</tr>
+											</tbody>
+										</table>
+										<div class="order-empty">
+											<div class="empty-pic">
+												<img src="../images/center/empty.png" alt="" />
+											</div>
+											<div class="empty-txt">
+												<p>您没有对应的订单内容哦～</p>
+												<p>
+													您可以通过<a href="https://kyfw.12306.cn/otn/leftTicket/init"
+														class="txt-primary underline">车票预订</a>功能，来制定出行计划。
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 常用联系人 -->
+					<div class="panel-border" style="display: none;" id="js-minHeight-ren" style="min-height: 692px;">
+						<!-- 常用联系人 -->
+						<div class="order-panel order-panel-contacts">
+							<div id="content_list">
+								<table class="order-panel-head">
+									<colgroup>
+										<col class="col-num" />
+										<col class="col-name" />
+										<col class="col-cardtype" />
+										<col class="col-cardnum" />
+										<col class="col-tel" />
+										<col class="col-usertype" />
+										<col class="col-state" />
+										<col />
+									</colgroup>
+									<tbody>
+										<tr>
+											<th>序号</th>
+											<th>姓名</th>
+											<th>证件类型</th>
+											<th>证件号码</th>
+											<th>手机／电话</th>
+											<th>旅客类型</th>
+											<th>核验状态</th>
+											<th>操作</th>
+										</tr>
+									</tbody>
+								</table>
+								<div class="order-item">
+									<div class="order-item-hd">
+										<a id="edit_contact" class="one-edit" href="javascript:void(0);">添加</a>
+									</div>
+									<div class="order-item-bd showPonse">
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="lianxirenNull" class="msg msg-null" >
+							该账户没有联系人，添加购票人信息吧
+						</div>
+					</div>
+					<!-- 常用联系人模板 -->
+					<script type="text/html" id="showPonse-temp">
+						<% $.each(data, function(k, v){ %>
+							<input type="hidden" name="funId" class="funId" value="<%= v.id %>">
+							<table class="order-item-table">
+								<colgroup>
+									<col class="col-num" />
+									<col class="col-name" />
+									<col class="col-cardtype" />
+									<col class="col-cardnum" />
+									<col class="col-tel" />
+									<col class="col-usertype" />
+									<col class="col-state" />
+									<col />
+								</colgroup>
+
+								<tbody>
+									<tr>
+										<td>
+											<label class="check-inline">
+												<input type="checkbox" class="" value="冯翠#1#142601197204028528#N"
+													style="width: 15px;height: 15px;position: relative;top: -1px;left: -6px;" />
+												<%= k+1 %>
+											</label>
+										</td>
+										<td class="br-none">
+											<div class="name-yichu">
+												<%= v.name %>
+											</div>
+										</td>
+										<td class="br-none">
+											<div>中国居民身份证</div>
+										</td>
+										<td class="br-none">
+											<div class="idCard-yichu"><%= v.idCard %></div>
+										</td>
+										<td class="br-none">
+											<div class="phoneNum-yichu"><%= v.phoneNum %></div>
+										</td>
+										<td class="br-none">
+											<div><span class="label-txt">成人</span></div>
+										</td>
+										<td class="br-none">
+											<div class="txt-success">已通过</div>
+										</td>
+										<td class="br-none">
+											<div class="list-operation">
+												<a class="one-del" href="http://127.0.0.1:8088//demo/12306/admin-remove.php?id=<%= v.id %>" class="remove-line">
+													删除
+												</a>
+												<a id="update-line" class="one-edit" href="javascript:;" style="margin-left: 10px;">编辑</a>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						<% }) %>
+					</script>
+				</div>
+			</div>
+		</div>
+		<div class="addWrap" style="display: none;">
+			<!-- 添加 -->
+			<form id="add-form" method="POST">
+				<div class="panel-border" id="js-addRen">
+					<div class="order-panel order-panel-contacts">
+						<div id="add-list">
+							<table class="order-panel-head">
+								<colgroup>
+									<col class="col-name">
+									<col class="col-cardtype">
+									<col class="col-cardnum">
+									<col class="col-tel">
+									<col>
+								</colgroup>
+								<tbody>
+									<tr>
+										<th>姓名</th>
+										<th>证件类型</th>
+										<th>证件号码</th>
+										<th>手机／电话</th>
+										<th>操作</th>
+									</tr>
+								</tbody>
+							</table>
+							<div class="order-item">
+								<div class="order-item-hd">
+	
+								</div>
+								<div class="order-item-bd">
+									<table class="order-item-table">
+										<colgroup>
+											<col class="col-name">
+											<col class="col-cardtype">
+											<col class="col-cardnum">
+											<col class="col-state">
+											<col>
+										</colgroup>
+										<tbody>
+											<tr>
+												<td class="br-none">
+													<div class="name-yichu">
+														<input type="text" name="addName" id="add-name" value="">
+													</div>
+												</td>
+												<td class="br-none">
+													<div>中国居民身份证</div>
+												</td>
+												<td class="br-none">
+													<div><input type="text" name="addIDCard" id="add-CID" value=""></div>
+												</td>
+												<td class="br-none">
+													<div><input type="text" name="addPhoneNum" id="add-phoneNum" value=""></div>
+												</td>
+												<td class="br-none">
+													<div class="list-operation">
+														<button type="submit" id="add-btn" class="one-edit">添加</button>
+													</div>
+												</td>
+												<td class="br-none">
+													<div class="list-operation">
+														<button id="add-exit-btn" type="button" class="one-edit exit" style="color:red">后退</button>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 添加提示 -->
+					<div class="msg msg-success">
+						添加成功
+					</div>
+					<div class="msg msg-error">
+						添加失败
+					</div>
+				</div>
+			</form>
+			<!-- 修改 -->
+			<form id="update-form" method="POST">
+				<input type="hidden" name="id" value="" id="updateId">
+				<div class="panel-border" id="js-minHeight">
+					<div class="order-panel order-panel-contacts">
+						<div id="update-list">
+							<table class="order-panel-head">
+								<colgroup>
+									<col class="col-name">
+									<col class="col-cardtype">
+									<col class="col-cardnum">
+									<col class="col-tel">
+									<col>
+								</colgroup>
+								<tbody>
+									<tr>
+										<th>姓名</th>
+										<th>证件类型</th>
+										<th>证件号码</th>
+										<th>手机／电话</th>
+										<th>操作</th>
+									</tr>
+								</tbody>
+							</table>
+							<div class="order-item">
+								<div class="order-item-hd">
+	
+								</div>
+								<div class="order-item-bd">
+									<table class="order-item-table">
+										<colgroup>
+											<col class="col-name">
+											<col class="col-cardtype">
+											<col class="col-cardnum">
+											<col class="col-state">
+											<col>
+										</colgroup>
+	
+										<tbody>
+											<tr>
+												<td class="br-none">
+													<div class="name-yichu">
+														<input type="text" name="" id="up-name">
+													</div>
+												</td>
+												<td class="br-none">
+													<div>中国居民身份证</div>
+												</td>
+												<td class="br-none">
+													<div><input type="text" name="" id="up-idCard"></div>
+												</td>
+												<td class="br-none">
+													<div><input type="text" name="" id="up-phoneNum"></div>
+												</td>
+												<td class="br-none">
+													<div class="list-operation">
+														<button type="submit" id="update-btn" class="one-edit">修改</button>
+														<button type="button" id="update-exit-btn" class="one-edit exit" style="color:red;margin-left: 10px;">取消</button>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+	<!-- 底部 -->
+	<footer>
+		<div class="w clearfix">
+			<div class="foot-links" style="margin-right: 20px;">
+				<h2 class="foot-con-tit">友情链接</h2>
+				<ul class="foot-links-list clearfix">
+					<li>
+						<a href="#"><img src="../img/foot-links-list-01.png" alt="" /></a>
+					</li>
+					<li>
+						<a href="#"><img src="../img/foot-links-list-02.png" alt="" /></a>
+					</li>
+					<li>
+						<a href="#"><img src="../img/foot-links-list-03.png" alt="" /></a>
+					</li>
+					<li>
+						<a href="#"><img src="../img/foot-links-list-04.png" alt="" /></a>
+					</li>
+				</ul>
+			</div>
+			<ul class="foot-code"></ul>
+			<script type="text/html" id="foot-code-temp">
+          <% for (var i = 0; i < data.length; i++) { %>
+          	<li style="width: 140px;">
+          	<h2 class="foot-con-tit"><%= data[i].h2%></h2>
+          	<div class="code-pic"><img src="../img/<%= data[i].img%>" alt=""></div>
+          </li>
+          <% } %>
+        </script>
+		</div>
+		<div class="footer-txt">
+			<p>
+				<span class="mr">版权所有©2008-2018</span>
+				<span class="mr">中国铁路信息科技有限责任公司</span>
+				<span>中国铁道科学研究院集团有限公司</span>
+			</p>
+			<p>
+				<span class="mr">京ICP备15003716号-3</span>
+				<span class="mr">|</span>
+				<span>京ICP证150437号</span>
+			</p>
+		</div>
+	</footer>
+</body>
+<script src="../js/same.js"></script>
+<script src="../js/admin.js"></script>
+
+</html>

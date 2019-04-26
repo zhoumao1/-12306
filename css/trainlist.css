@@ -1,0 +1,360 @@
+@import './base.css';
+@import './same.css';
+/* 加载gif */
+.show{
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	margin: auto;
+	z-index: 10000;
+	background: rgba(255, 255, 255, 0.582);
+}
+.show >img{
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	margin: auto;
+
+}
+.sear-box {
+	height: 48px;
+	padding: 12px 10px;
+	background: #eef1f8;
+	font-size: 12px;
+	border: 1px solid #298cce;
+	margin-top: 10px;
+	border-radius: 3px;
+}
+.sear-box-lg.quick-sear-box .s-info {
+	margin-right: 25px;
+	float: left;
+}
+.sear-box-lg.quick-sear-box .s-info li {
+	width: 190px;
+}
+.s-info li {
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	padding: 10px 10px;
+	white-space: nowrap;
+}
+.sear-box .label {
+	display: block;
+	width: 40px;
+	float: left;
+	margin: 0;
+	padding: 0;
+	padding-right: 2px;
+	text-align: right;
+	font: 1.1em/30px sans-serif;
+}
+.sear-box .inp-w {
+	position: relative;
+	width: 122px;
+	height: 30px;
+	float: left;
+}
+.inp-txt {
+	width: 113px;
+	height: 18px;
+	line-height: 18px;
+	border: 1px solid #cfcdc7;
+	background: #fff;
+	padding: 5px 0 5px 5px;
+	color: #999;
+}
+.i-city{
+	background: url(../img/icon.png) no-repeat;
+}
+.i-city {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	background-position: 0 -150px;
+	overflow: hidden;
+}
+.sear-box-lg.quick-sear-box .s-info .i-change {
+	width: 16px;
+	margin-right: 20px;
+}
+.inp_selected {
+	width: 113px;
+	height: 18px;
+	line-height: 18px;
+	border: 1px solid #cfcdc7;
+	background: #fff;
+	padding: 5px 0 5px 5px;
+	color: #333;
+}
+.i-date {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	background-position: 0 -250px;
+	overflow: hidden;
+}
+/* 查询 */
+.quick-s {
+	padding-left: 25px;
+}
+.quick-s {
+	float: left;
+	width: 184px;
+	height: 58px;
+	overflow: hidden;
+	background: url(../img/line_sear.png) left center no-repeat;
+	padding-left: 15px;
+	margin-top: -5px;
+}
+.quick-s ul {
+	width: 80px;
+	float: left;
+	margin-top: 4px;
+}
+.quick-s ul li {
+	height: 23px;
+	line-height: 23px;
+	overflow: hidden;
+}
+.radio {
+	vertical-align: -3px;
+	margin-right: 4px;
+}
+input, select, textarea {
+	font-size: 12px;
+	font-family: Tahoma;
+	line-height: 18px;
+	padding: 0;
+	margin: 0;
+	color: #333;
+	outline: 0;
+}
+.quick-s ul {
+	width: 80px;
+	float: left;
+	margin-top: 4px;
+	position: relative;
+	top: -8px;
+}
+.quick-s ul li {
+	height: 23px;
+	line-height: 23px;
+	overflow: hidden;
+	padding: 4px 10px;
+}
+.quick-s .btn-area {
+	width: 98px;
+	height: 58px;
+	overflow: hidden;
+	float: left;
+	margin-top: 0;
+}
+.btn-area button {
+	margin-right: 10px;
+	background: #ff9e59;
+	width: 100%;
+	display: block;
+	border-radius: 10px;
+	text-align: center;
+}
+.no-br button {
+	width: 90%;
+	height: 26px;
+	color: #fff;
+	background: #ff9e59;
+	border-radius: 12px;
+	text-align: center;
+}
+.btn92s {
+	width: 92px;
+}
+.btn92s, .btn122s, .btn200s, .btn30s {
+	height: 30px;
+	line-height: 30px;
+	background-position: 0 0;
+	color: #fff;
+}
+/* 显示车次数量基本信息 */
+.sear-result {
+	height: 23px;
+	line-height: 23px;
+	position: relative;
+	width: 100%;
+	padding: 6px 0;
+	display: block;
+}
+.t-list {
+	border: 1px solid #298cce;
+}
+.t-list table {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	table-layout: fixed;
+	word-wrap: break-word;
+	background: url(../img/bg_tlisthd.png) top repeat-x;
+	margin-top: 0;
+}
+.t-list table {
+	border-collapse: separate;
+}
+table, td, tr, th {
+	font-size: 12px;
+}
+.t-list th {
+	height: 52px;
+	background: url(../img/line_tlisth.png) right center no-repeat;
+	color: #fff;
+	overflow: hidden;
+}
+.t-list td {
+	border-right: 1px solid #b0cedd;
+	border-top: 1px solid #b0cedd;
+	color: #999;
+	height: 36px;
+	padding: 2px 0;
+	text-align: center;
+}
+.t-list tbody tr:nth-of-type(2n+1){
+	background: #eef1f8;
+}
+.t-list td .ticket-info {
+	width: 354px;
+	height: 36px;
+	line-height: 18px;
+	padding: 0;
+	position: relative;
+	text-align: left;
+}
+.t-list .train {
+	width: 90px;
+	height: 36px;
+	float: left;
+	margin-right: 10px;
+	position: relative;
+}
+.t-list .train .number {
+	font-size: 16px;
+	color: #333;
+	text-decoration: underline;
+	display: inline-block;
+	width: 60px;
+	height: 36px;
+	line-height: 36px;
+	overflow: hidden;
+	margin-right: 6px;
+	text-align: right;
+	font-weight: 700;
+}
+.i-card {
+	display: inline-block;
+	width: 16px;
+	height: 13px;
+	background: url(../img/icon.png) no-repeat;
+	background-position: 0 -100px;
+	position: absolute;
+	top: 5px;
+	right: 9px;
+}
+.t-list .lookup b {
+	display: block;
+	width: 10px;
+	height: 5px;
+	overflow: hidden;
+	background: url(../img/icon8.png) no-repeat;
+	background-position: 0 -55px;
+	position: absolute;
+	top: 23px;
+	right: 12px;
+}
+.t-list .lookup .open {
+	background-position: 0 -50px;
+}
+/* 出发站到达站 */
+.t-list .cdz {
+	width: 100px;
+	float: left;
+}
+.t-list .cdz strong {
+	display: block;
+	padding-left: 18px;
+	height: 18px;
+	line-height: 18px;
+	overflow: hidden;
+	background: url(../img/icon.png) no-repeat;
+}
+.t-list .cdz .start-s {
+	background-position: 0 -546px;
+}
+.t-list .cdz .end-s {
+	display: block;
+	background-position: 0 -496px;
+}
+/* 出发时间 */
+.t-list .cds {
+	width: 70px;
+	float: left;
+	font-family: Tahoma;
+	font-size: 14px;
+	color: #333;
+}
+.t-list .start-t {
+	width: 70px;
+	display: block;
+	height: 18px;
+	line-height: 18px;
+	float: left;
+	overflow: hidden;
+}
+.t-list td .color999 {
+	color: #999;
+}
+.t-list td strong {
+	color: #333;
+}
+/* 历时 */
+.t-list .ls {
+	width: 72px;
+	float: left;
+	color: #333;
+	padding-left: 6px;
+}
+.t-list .ls strong {
+	display: block;
+	line-height: 35px;
+	overflow: hidden;
+	color: #333;
+	text-align: center;
+}
+/* 商务 */
+.t-list .t-num {
+	color: #333;
+	font-weight: 700;
+}
+/* 预定 */
+.btn72 {
+	width: 60px;
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+	color: #fff;
+	display: inline-block;
+	background: #ff9e59;
+	border-radius: 8px;
+}
+/* 价格 */
+.bgc-price td{
+	color: #fc8302;
+	font-family: Arial;
+}

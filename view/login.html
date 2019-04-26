@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>用户登录</title>
+	<link rel="stylesheet" href="../css/login.css">
+	<script src="../lib/func.js"></script>
+	<script src="../lib/jq.js"></script>
+	<script src="../lib/underscore.js"></script>
+	<script src="../js/same.js"></script>
+</head>
+
+<body>
+	<!-- 加载区域 -->
+	<div class="show" style="display: none;">
+		<img src="../img/loading3.gif" alt="">
+	</div>
+	<header>
+		<div class="w clearfix">
+			<div class="header-con">
+				<h1 class="logo">
+					<a href="index.html"></a>
+				</h1>
+				<!-- 右侧内容 -->
+				<div class="header-right">
+					<div class="header-search">
+						<form action="" method="post">
+							<input type="text" name="" id="search-input" placeholder="搜索车票/餐饮/常旅客/相关规章">
+							<a href="javascript:;" id="search-btn">
+								<!-- TODO: 缺少搜索图 -->
+							</a>
+						</form>
+					</div>
+					<!-- 头部右侧菜单 -->
+					<ul class="header-menu">
+						<li class="menu-item menu-nav" id="slide-menu">
+							<a href="#" class="menu-nav-hd">我的12306
+								<i class="caret">
+									<!-- 三角 --></i>
+							</a>
+							<ul class="menu-nav-bd">
+								<li><a href="#">火车票订单</a></li>
+								<li><a href="#">候补订单</a></li>
+								<li><a href="#">我的行程</a></li>
+								<li class="nav-line"></li>
+								<li><a href="#">我的餐饮•特产</a></li>
+								<li><a href="#">我的保险</a></li>
+								<li><a href="#">我的会员</a></li>
+								<li class="nav-line"></li>
+								<li><a href="#">查看个人信息</a></li>
+								<li><a href="#">账户安全</a></li>
+								<li class="nav-line"></li>
+								<li><a href="#">常用联系人</a></li>
+								<li><a href="#">车票快递地址</a></li>
+								<li class="nav-line"></li>
+								<li><a href="#">温馨服务查询</a></li>
+							</ul>
+						</li>
+						<li class="menu-item menu-line">|</li>
+						<li class="menu-item menu-login">
+							<a href="login.html">登录</a>
+							<a href="login.html">注册</a>
+						</li>
+						<li class="menu-item menu-login" id="Cookflag" style="display: none;">
+							<a href="admin.html">
+								欢迎 
+								<b style="color: #3B99FC;" id="user-name">jr</b>
+								登录
+							</a>
+						</li>
+						<li class="menu-item menu-line" id="loginOut-line" style="display: none;">|</li>
+						<li class="menu-item menu-login">
+							<a href="javascript:;" style="color:hotpink;display:none" id="loginOut" >退出</a>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+		</div>
+		<!-- 导航 -->
+		<nav>
+			<ul class="nav">
+				<li class="nav-item nav-item-w1">
+					<a href="#" class="nav-hd">首页</a>
+				</li>
+				<li class="nav-item nav-item-w1">
+					<a href="#" class="nav-hd">车票<i class="icon"></i></a>
+					<!-- 下拉内容 -->
+					<div class="nav-bd" id="nav-hd"></div>
+					<script type="text/html" id="nav-temp">
+						<% for (var i = 0; i < navData.length; i++) { %>
+							<div class="nav-bd-item nav-col2">
+								<h3 class="nav-tit"><%= navData[i].h3%></h3>
+								<ul class="nav-con clearfix">
+									<li class="nanv_dan">
+										<a href="#"><%= navData[i].linkContent.one%></a>
+									</li>
+									<li class="nav_wang">
+										<a href="#"><%= navData[i].linkContent.two%></a>
+									</li>
+									<li>
+										<a href="#"><%= navData[i].linkContent.three%></a>
+									</li>
+								</ul>
+							</div>
+							<% } %>
+					</script>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">团购服务<i class="icon"></i></a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">会员服务<i class="icon"></i></a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">站车服务<i class="icon"></i></a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">商旅服务<i class="icon"></i></a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">出行指南<i class="icon"></i></a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">信息查询<i class="icon"></i></a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+	<section>
+		<div class="w clearfix">
+			<!-- banner -->
+			<div class="bd">
+				<li><a href="#"></a></li>
+			</div>
+		</div>
+		<!-- 登录盒子 -->
+		<div class="login-box">
+			<ul class="login-hd">
+				<li class="login-hd-code active"><a href="#">账号登录</a></li>
+				<li class="login-hd-account"><a href="#">账号注册</a></li>
+			</ul>
+			<!-- 内容 -->
+			<div class="login-bd">
+				<form class="login-account" method="POST" id="login">
+					<div class="login-item">
+						<label for="" class="item-label"><i class="icon"></i></label>
+						<input type="text" class="input" id="login-name" placeholder="用户名／邮箱／手机号">
+					</div>
+					<div class="login-item">
+						<label for="" class="item-label"><i class="icon"></i></label>
+						<input type="password" class="input" id="login-pwd" placeholder="密码">
+					</div>
+					<!-- 提交 -->
+					<div class="login-btn">
+						<input type="submit" value="立即登录" class="btn form-block">
+					</div>
+					<div class="login-txt">
+						<a href="" class="txt-primary">注册12306账号</a> | 
+						<a href="" class="txt-lighter">忘记密码？</a>
+					</div>
+				</form>
+			</div>
+			<div class="login-bd registered-bd">
+				<form class="login-account" method="POST" id="regist">
+					<div class="login-item">
+						<label for="" class="item-label"><i class="icon"></i></label>
+						<input type="text" class="input" id="regist-name" placeholder="用户名／邮箱／手机号">
+					</div>
+					<div class="login-item">
+						<label for="" class="item-label"><i class="icon"></i></label>
+						<input type="password" class="input" id="regist-pwd" placeholder="密码">
+						<p style="color: #f70e45;display: none;" id="reg-msg">用户名已被注册</p>
+						<p style="color: #f70e45;display: none;width: 110%;" id="reg-msg2">用户名只能为小写英文字母和数字(最小3位, 最大5位)</p>
+					</div>
+					<!-- 提交 -->
+					<div class="login-btn">
+						<input type="button" value="立即注册" class="btn form-block">
+					</div>
+					<div class="login-txt">
+						<a href="" class="txt-primary">注册12306账号</a> | 
+						<a href="" class="txt-lighter">忘记密码？</a>
+					</div>
+				</form>
+			</div>
+			<div class="login-ft">
+				<p>1、12306.cn网站每日06:00~23:00提供服务。</p>
+				<p>2、在12306.cn网站购票、改签和退票须不晚于开车前30分钟；办理“变更到站”业务时，请不晚于开车前48小时。</p>
+			</div>
+		</div>
+		<script src="../js/login.js"></script>
+	</section>
+	<footer>
+		<div class="w clearfix">
+			<div class="foot-links" style="margin-right: 20px;">
+				<h2 class="foot-con-tit">友情链接</h2>
+				<ul class="foot-links-list clearfix">
+					<li><a href="#"><img src="../img/foot-links-list-01.png" alt=""></a></li>
+					<li><a href="#"><img src="../img/foot-links-list-02.png" alt=""></a></li>
+					<li><a href="#"><img src="../img/foot-links-list-03.png" alt=""></a></li>
+					<li><a href="#"><img src="../img/foot-links-list-04.png" alt=""></a></li>
+				</ul>
+			</div>
+			<ul class="foot-code"></ul>
+			<script type="text/html" id="foot-code-temp">
+				<% for (var i = 0; i < data.length; i++) { %>
+					<li style="width: 140px;">
+					<h2 class="foot-con-tit"><%= data[i].h2%></h2>
+					<div class="code-pic"><img src="../img/<%= data[i].img%>" alt=""></div>
+				</li>
+				<% } %>
+			</script>
+		</div>
+		<div class="footer-txt">
+			<p>
+				<span class="mr">版权所有©2008-2018</span>
+				<span class="mr">中国铁路信息科技有限责任公司</span>
+				<span>中国铁道科学研究院集团有限公司</span>
+			</p>
+			<p>
+				<span class="mr">京ICP备15003716号-3</span>
+				<span class="mr">|</span>
+				<span>京ICP证150437号</span>
+			</p>
+		</div>
+	</footer>
+</body>
+
+
+</html>

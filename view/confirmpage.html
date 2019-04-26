@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>提交页面</title>
+	<script src="../lib/func.js"></script>
+	<script src="../lib/jq.js"></script>
+	<script src="../lib/underscore.js"></script>
+	<link rel="stylesheet" href="../css/confirmpage.css">
+</head>
+
+<body>
+	<!-- 加载区域 -->
+	<div class="show" style="display: none;">
+		<img src="../img/loading3.gif" alt="">
+	</div>
+	<header>
+		<div class="w clearfix">
+			<div class="header-con">
+				<h1 class="logo">
+					<a href="index.html"></a>
+				</h1>
+				<!-- 右侧内容 -->
+				<div class="header-right">
+					<div class="header-search">
+						<form action="" method="post">
+							<input type="text" name="" id="search-input" placeholder="搜索车票/餐饮/常旅客/相关规章" />
+							<a href="javascript:;" id="search-btn">
+								<!-- TODO: 缺少搜索图 -->
+							</a>
+						</form>
+					</div>
+					<!-- 头部右侧菜单 -->
+					<ul class="header-menu">
+						<li class="menu-item menu-nav" id="slide-menu">
+							<a href="#" class="menu-nav-hd">我的12306
+								<i class="caret">
+									<!-- 三角 --></i>
+							</a>
+							<ul class="menu-nav-bd">
+								<li><a href="#">火车票订单</a></li>
+								<li><a href="#">候补订单</a></li>
+								<li><a href="#">我的行程</a></li>
+								<li class="nav-line"></li>
+								<li><a href="#">我的餐饮•特产</a></li>
+								<li><a href="#">我的保险</a></li>
+								<li><a href="#">我的会员</a></li>
+								<li class="nav-line"></li>
+								<li><a href="#">查看个人信息</a></li>
+								<li><a href="#">账户安全</a></li>
+								<li class="nav-line"></li>
+								<li><a href="#">常用联系人</a></li>
+								<li><a href="#">车票快递地址</a></li>
+								<li class="nav-line"></li>
+								<li><a href="#">温馨服务查询</a></li>
+							</ul>
+						</li>
+						<li class="menu-item menu-line">|</li>
+						<li class="menu-item menu-login">
+							<a href="login.html">登录</a>
+							<a href="login.html">注册</a>
+						</li>
+						<li class="menu-item menu-login" id="Cookflag" style="display: none;">
+							<a href="admin.html">
+								欢迎 
+								<b style="color: #3B99FC;" id="user-name">jr</b>
+								登录
+							</a>
+						</li>
+						<li class="menu-item menu-line" id="loginOut-line" style="display: none;">|</li>
+						<li class="menu-item menu-login">
+							<a href="javascript:;" style="color:hotpink;display:none" id="loginOut" >退出</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- 导航 -->
+		<nav>
+			<ul class="nav">
+				<li class="nav-item nav-item-w1">
+					<a href="#" class="nav-hd">首页</a>
+				</li>
+				<li class="nav-item nav-item-w1">
+					<a href="#" class="nav-hd">车票<i class="icon"></i></a>
+					<!-- 下拉内容 -->
+					<div class="nav-bd" id="nav-hd"></div>
+					<script type="text/html" id="nav-temp">
+              <% for (var i = 0; i < navData.length; i++) { %>
+              	<div class="nav-bd-item nav-col2">
+              		<h3 class="nav-tit"><%= navData[i].h3%></h3>
+              		<ul class="nav-con clearfix">
+              			<li class="nanv_dan">
+              				<a href="#"><%= navData[i].linkContent.one%></a>
+              			</li>
+              			<li class="nav_wang">
+              				<a href="#"><%= navData[i].linkContent.two%></a>
+              			</li>
+              			<li>
+              				<a href="#"><%= navData[i].linkContent.three%></a>
+              			</li>
+              		</ul>
+              	</div>
+              	<% } %>
+            </script>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">团购服务<i class="icon"></i></a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">会员服务<i class="icon"></i></a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">站车服务<i class="icon"></i></a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">商旅服务<i class="icon"></i></a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">出行指南<i class="icon"></i></a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-hd">信息查询<i class="icon"></i></a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+	<section>
+		<!-- 列车信息 -->
+		<div id="wrap-cont"></div>
+		<script type="text/html" id="xinxi-temp">
+			<div id="wrap-xinxi">
+				<!-- 分割 -->
+				<div class="layout t-info">
+					<div class="lay-hd">
+						列车信息<span class="small">（以下余票信息仅供参考）</span>
+					</div>
+					<div class="lay-bd">
+						<p class="t-tit" id="ticket_tit_id">
+							<strong class="mr5">2019-03-19（周二）</strong><strong class="ml5"><%= data[0].num %></strong>次<strong
+								class="ml5"><%= data[0].fromCity %></strong>站<strong>（<%= data[0].fromTime %>开）—<%= data[0].toCity %></strong>站（<%= data[0].toTime %>到）
+						</p>
+						<p class="t-con" id="ticket_con_id">
+							<% if(data[0].businessClass != '--' && data[0].businessClass != '无'){ %>
+								<span id="ticket_status_id" class="s2" style="display:inline-block;">商务座（<span class="colorA"><%= data[0].p1 %></span>）<%= data[0].businessClass %>张</span>
+							<% } %>
+							<% if(data[0].firstClass != '--' && data[0].firstClass != '无'){ %>
+								<span id="ticket_status_id" class="s2" style="display:inline-block;">一等座（<span class="colorA"><%= data[0].p2 %></span>）<%= data[0].firstClass %></span>
+							<% } %>
+							<% if(data[0].secondClass != '--' && data[0].secondClass != '无'){ %>
+								<span id="ticket_status_id" class="s2" style="display:inline-block;">二等座（<span class="colorA"><%= data[0].p3 %></span>）<%= data[0].secondClass %>张</span>
+							<% } %>
+							<% if(data[0].gjSortSleeper != '--' && data[0].gjSortSleeper != '无'){ %>
+								<span id="ticket_status_id" class="s2" style="display:inline-block;">高级软卧（<span class="colorA"><%= data[0].p4 %></span>）<%= data[0].gjSortSleeper %>张</span>
+							<% } %>
+							<% if(data[0].fcSortsleeper != '--' && data[0].fcSortsleeper != '无'){ %>
+								<span id="ticket_status_id" class="s2" style="display:inline-block;">软卧（<span class="colorA"><%= data[0].p5 %></span>）<%= data[0].fcSortsleeper %>张</span>
+							<% } %>
+							<% if(data[0].dSleeper != '--' && data[0].dSleeper != '无'){ %>
+								<span id="ticket_status_id" class="s2" style="display:inline-block;">动卧（<span class="colorA"><%= data[0].p6 %></span>）<%= data[0].dSleeper %>张</span>
+							<% } %>
+							<% if(data[0].schardSleeper != '--' && data[0].schardSleeper != '无'){ %>
+								<span id="ticket_status_id" class="s2" style="display:inline-block;">硬卧（<span class="colorA"><%= data[0].p7 %></span>）<%= data[0].schardSleeper %>张</span>
+							<% } %>
+							<% if(data[0].sortClass != '--' && data[0].sortClass != '无'){ %>
+								<span id="ticket_status_id" class="s2" style="display:inline-block;">软座（<span class="colorA"><%= data[0].p8 %></span>）<%= data[0].sortClass %>张</span>
+							<% } %>
+							<% if(data[0].hardClass != '--' && data[0].hardClass != '无'){ %>
+								<span id="ticket_status_id" class="s2" style="display:inline-block;">硬座（<span class="colorA"><%= data[0].p9 %></span>）<%= data[0].hardClass %>张</span>
+							<% } %>
+							<% if(data[0].noClass != '--' && data[0].noClass != '无'){ %>
+								<span id="ticket_status_id" class="s2" style="display:inline-block;">无座（<span class="colorA"><%= data[0].p10 %></span>）<%= data[0].noClass %>张</span>
+							<% } %>
+						</p>
+						<p style="color: #3177BF;">
+							*显示的卧铺票价均为上铺票价，供您参考。具体票价以您确认支付时实际购买的铺别票价为准。
+						</p>
+					</div>
+				</div>
+			</div>
+			<div id="wrap-ren">
+				<!-- 乘客信息 -->
+				<div class="layout person">
+					<div class="lay-hd">
+						乘客信息<span class="small" id="psInfo">（填写说明）</span>
+						<div class="s-box"><input id="quickQueryPassenger_id" type="text" value="输入乘客姓名" class="txt">
+							<input id="submit_quickQueryPassenger" type="submit" class="sub">
+						</div>
+					</div>
+					<div class="lay-bd">
+						<!-- 分割 -->
+						<div class="per-sel">
+							<div class="item clearfix">
+								<ul id="dj_passenger_id"></ul>
+							</div>
+							<div class="item clearfix">
+								<p id="lianxirenP" class="msg">该账户没有联系人，<a href="./admin.html?view=add_lianxiren" style="color: #3B99FC;">去个人中心添加</a></p>
+								<h2 class="cy" id="normal_passenger_image_id" title="常用联系人">常用联系人</h2>
+								<ul id="normal_passenger_id">
+									<% $.each(data[1], function(k, v){ %>
+										<li>
+											<input id="normalPassenger_<%= v.id %>" type="checkbox" class="check" data-idCard="<%= v.idCard %>" data-name="<%= v.name %>" data-uid="<%= v.uid %>" data-phone="<%= v.phoneNum %>"><label
+												for="normalPassenger_<%= v.id %>" style="cursor: pointer"><%= v.name %></label>
+										</li>
+									<% }) %>
+								</ul>
+
+							</div>
+						</div>
+						<table class="per-ticket">
+							<tbody>
+								<tr>
+									<th rowspan="1" colspan="1" width="28">序号</th>
+									<th rowspan="1" colspan="1">票种</th>
+									<th rowspan="1" colspan="1">席别 </th>
+									<th rowspan="1" colspan="1">姓名</th>
+									<th rowspan="1" colspan="1">证件类型</th>
+									<th rowspan="1" colspan="1">证件号码</th>
+									<th rowspan="1" colspan="1">手机号码</th>
+									<th rowspan="1" colspan="1" width="70"></th>
+									<th rowspan="1" colspan="1" width="30"></th>
+								</tr>
+							</tbody>
+							<tbody id="ticketInfo_id">
+								<tr class="tr_id_1">
+									<td align="center">1</td>
+									<td>
+										<select id="ticketType_1" name="confirmTicketType">
+											
+											<option name="ticket_type_option" value="1" selected="selected">成人票</option>
+											<option value="2">儿童票 </option>
+											<option value="3">学生票 </option>
+											<option value="4">残军票 </option>
+										</select>
+									</td>
+									<td>
+										<select id="seatType_1">
+											<% if(data[0].businessClass != '--' && data[0].businessClass != '无'){ %>
+												<option date-zuo="" value="<%= data[0].p1 %>,商务座,businessClass"  date-price="<%= data[0].p1 %>">
+													商务座（<%= data[0].p1 %>）
+												</option>
+											<% } %>
+											<% if(data[0].firstClass != '--' && data[0].firstClass != '无'){ %>
+												<option date-zuo="" value="<%= data[0].p2 %>,一等座,firstClass"  date-price="<%= data[0].p2 %>">
+													一等座（<%= data[0].p2 %>）
+												</option>
+											<% } %>
+											<% if(data[0].secondClass != '--' && data[0].secondClass != '无'){ %>
+												<option date-zuo="" value="<%= data[0].p3 %>,二等座,secondClass"  date-price="<%= data[0].p3 %>">
+													二等座（<%= data[0].p3 %>）
+												</option>
+											<% } %>
+											<% if(data[0].gjSortSleeper != '--' && data[0].gjSortSleeper != '无'){ %>
+												<option date-zuo="" value="<%= data[0].p4 %>,高级软卧,gjSortSleeper"  date-price="<%= data[0].p4 %>">
+													高级软卧（<%= data[0].p4 %>）
+												</option>
+											<% } %>
+											<% if(data[0].fcSortsleeper != '--' && data[0].fcSortsleeper != '无'){ %>
+												<option date-zuo="" value="<%= data[0].p5 %>,软卧,fcSortsleeper"  date-price="<%= data[0].p5 %>">
+													软卧（<%= data[0].p5 %>）
+												</option>
+											<% } %>
+											<% if(data[0].dSleeper != '--' && data[0].dSleeper != '无'){ %>
+												<option date-zuo="" value="<%= data[0].p6 %>,动卧,dSleeper"  date-price="<%= data[0].p6 %>">
+													动卧（<%= data[0].p6 %>）
+												</option>
+											<% } %>
+											<% if(data[0].schardSleeper != '--' && data[0].schardSleeper != '无'){ %>
+												<option date-zuo="" value="<%= data[0].p7 %>,硬卧,schardSleeper"  date-price="<%= data[0].p7 %>">
+													硬卧（<%= data[0].p7 %>）
+												</option>
+											<% } %>
+											<% if(data[0].sortClass != '--' && data[0].sortClass != '无'){ %>
+												<option date-zuo="" value="<%= data[0].p8 %>,软座,sortClass"  date-price="<%= data[0].p8 %>">
+													软座（<%= data[0].p8 %>）
+												</option>
+											<% } %>
+											<% if(data[0].hardClass != '--' && data[0].hardClass != '无'){ %>
+												<option date-zuo="" value="<%= data[0].p9 %>,硬座,hardClass"  date-price="<%= data[0].p9 %>">
+													硬座（<%= data[0].p9 %>）
+												</option>
+											<% } %>
+											<% if(data[0].noClass != '--' && data[0].noClass != '无'){ %>
+												<option date-zuo="" value="<%= data[0].p10 %>,无座,noClass"  date-price="<%= data[0].p10 %>">
+													无座（<%= data[0].p10 %>）
+												</option>
+											<% } %>
+											<!-- <option value="1" selected="selected">
+												硬座（<span class="price-span">￥124.0</span>）
+											</option> -->
+										</select>
+									</td>
+									<td>
+										<div class="pos-rel"><input id="passenger_name_1"
+												class="inptxt w110" value="" size="12" maxlength="20" readonly="readonly"
+												style="color: rgb(153, 153, 153); border: 1px solid rgb(207, 205, 199);"
+												title="不允许修改乘车人信息">
+											<!-- <div class="w110-focus" id="passenger_name_1_notice" style="display: none;"></div> -->
+										</div>
+									</td>
+									<td>
+										<select id="passenger_id_type_1" readonly="readonly" style="color:#999999" title="不允许修改乘车人信息">
+											<option value="1" selected="selected"> 中国居民身份证 </option>
+											<option value="C">港澳居民来往内地通行证</option>
+											<option value="G">台湾居民来往大陆通行证</option>
+											<option value="B">护照</option>
+											<option value="H">外国人永久居留身份证</option>
+										</select>
+									</td>
+									<td>
+										<div class="pos-rel"><input id="passenger_id_no_1"
+												class="inptxt w160" value="" size="20" maxlength="35" readonly="readonly"
+												style="color: rgb(153, 153, 153); border: 1px solid rgb(207, 205, 199);"
+												title="不允许修改乘车人信息">
+											<!-- <div class="w160-focus" id="passenger_id_no_1_notice" style="display: none;"></div> -->
+										</div>
+									</td>
+									<td>
+										<div class="pos-rel"><input id="phone_no_1"
+												class="inptxt w110" value="" size="11" maxlength="20" readonly="readonly"
+												style="color: rgb(153, 153, 153); border: 1px solid rgb(207, 205, 199);"
+												title="不允许修改乘车人信息">
+											<div class="w160-focus" id="phone_no_1_notice" style="display: none;"></div>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</script>
+		<!-- <script type="text/html" id="ren-temp">
+			
+		</script> -->
+		<!-- 乘客信息结束 -->
+		<div class="lay-btn">
+			<a id="preStep_id" href="javascript:;" class="btn92">上一步</a>
+			<a id="submitOrder_id" href="javascript:;" class="btn92s">提交订单</a>
+		</div>
+		<div class="tips-txt">
+			<h2>温馨提示：</h2>
+			<p>1. 一张有效身份证件同一乘车日期同一车次只能购买一张车票，高铁动卧列车除外。</p>
+			<p>2. 购票时可使用的有效身份证件包括：中华人民共和国居民身份证、港澳居民来往内地通行证、台湾居民来往大陆通行证和按规定可使用的有效护照。</p>
+			<p>3. 购买儿童票时，乘车儿童有有效身份证件的，请填写本人有效身份证件信息。乘车儿童没有有效身份证件的，应使用同行成年人的有效身份证件信息；购票时不受第一条限制，但购票后、开车前须办理换票手续方可进站乘车。</p>
+			<p>
+				4. 购买学生票时，须在<a href="../view/passengers.html" shape="rect">我的常用联系人</a>
+				中登记乘车人的学生详细信息。学生票乘车时间限为每年的暑假6月1日至9月30日、寒假12月1日至3月31日。购票后、开车前，须办理换票手续方可进站乘车。换票时，新生凭录取通知书，毕业生凭学校书面证明，其他凭学生优惠卡。
+
+			</p>
+			<p>5.
+				购买残疾军人（伤残警察）优待票的，须在购票后、开车前办理换票手续方可进站乘车。换票时，不符合规定的减价优待条件，没有有效"中华人民共和国残疾军人证"或"中华人民共和国伤残人民警察证"的，不予换票，所购车票按规定办理退票手续。
+			</p>
+			<p><strong>6.购买铁路乘意险的注册用户年龄须在18周岁以上，使用非中国居民身份证注册的用户如购买铁路乘意险，须在<a href="../view/information.html"
+						shape="rect">我的12306——个人信息</a>
+					如实填写“出生日期”。</strong>
+			</p>
+			<p><strong>7.父母为未成年子女投保，须在<a href="../view/passengers.html" shape="rect">我的常用联系人</a>
+					登记未成年子女的有效身份证件信息。</strong>
+			</p>
+		</div>
+	</section>
+	<!-- 底部 -->
+	<footer>
+		<div class="w clearfix">
+			<div class="foot-links" style="margin-right: 20px;">
+				<h2 class="foot-con-tit">友情链接</h2>
+				<ul class="foot-links-list clearfix">
+					<li>
+						<a href="#"><img src="../img/foot-links-list-01.png" alt="" /></a>
+					</li>
+					<li>
+						<a href="#"><img src="../img/foot-links-list-02.png" alt="" /></a>
+					</li>
+					<li>
+						<a href="#"><img src="../img/foot-links-list-03.png" alt="" /></a>
+					</li>
+					<li>
+						<a href="#"><img src="../img/foot-links-list-04.png" alt="" /></a>
+					</li>
+				</ul>
+			</div>
+			<ul class="foot-code"></ul>
+			<script type="text/html" id="foot-code-temp">
+          <% for (var i = 0; i < data.length; i++) { %>
+          	<li style="width: 140px;">
+          	<h2 class="foot-con-tit"><%= data[i].h2%></h2>
+          	<div class="code-pic"><img src="../img/<%= data[i].img%>" alt=""></div>
+          </li>
+          <% } %>
+        </script>
+		</div>
+		<div class="footer-txt">
+			<p>
+				<span class="mr">版权所有©2008-2018</span>
+				<span class="mr">中国铁路信息科技有限责任公司</span>
+				<span>中国铁道科学研究院集团有限公司</span>
+			</p>
+			<p>
+				<span class="mr">京ICP备15003716号-3</span>
+				<span class="mr">|</span>
+				<span>京ICP证150437号</span>
+			</p>
+		</div>
+	</footer>
+</body>
+<script src="../js/same.js"></script>
+<script src="../js/confirmpage.js"></script>
+
+</html>

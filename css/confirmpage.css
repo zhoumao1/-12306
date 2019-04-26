@@ -1,0 +1,221 @@
+@import './base.css';
+@import './same.css';
+section{
+	width: 980px;
+	min-height: 620px;
+	margin: 0 auto;
+}
+.layout{
+	background: url(../img/bg.png) repeat-x;
+}
+.layout {
+	border: 1px solid #1678be;
+	border-radius: 5px 5px 0 0;
+	background-position: 0 -400px;
+}
+.t-info {
+	margin-top: 10px;
+}
+.layout .lay-hd {
+	height: 32px;
+	line-height: 30px;
+	color: #e5f8ff;
+	padding-left: 20px;
+	font-size: 14px;
+	position: relative;
+}
+.t-info .lay-bd {
+	background: #eef1f8;
+	padding: 0 10px 0;
+}
+.layout .lay-hd .small {
+	font-size: 12px;
+}
+.t-info .t-tit {
+	border-bottom: 1px dashed #999;
+}
+.mr5 {
+	margin-right: 5px;
+}
+.t-info .t-tit strong {
+	font-size: 16px;
+}
+.ml5 {
+	margin-left: 5px;
+}
+.t-info p {
+	line-height: 32px;
+}
+.t-info .s2 {
+	color: #999;
+	margin-right: 25px;
+}
+.t-info .s1 {
+	margin-right: 25px;
+	color: #333;
+}
+.t-info .s2 .colorA {
+	color: #999;
+}
+/* 乘客信息 */
+.person {
+	margin-top: 10px;
+}
+.s-box {
+	height: 20px;
+	width: 141px;
+	border: 1px solid #125c94;
+	position: absolute;
+	top: 3px;
+	right: 10px;
+}
+.s-box .txt {
+	width: 120px;
+	height: 20px;
+	line-height: 20px;
+	background: #fff;
+	border: 0 none;
+	float: left;
+	border-right: 1px solid #125c94;
+	color: #999;
+	text-indent: 5px;
+}
+input, select, textarea {
+	font-size: 12px;
+	font-family: Tahoma;
+	padding: 0;
+	margin: 0;
+	color: #333;
+	outline: 0;
+}
+.s-box .sub {
+	display: block;
+	width: 20px;
+	height: 20px;
+	border: 0;
+	background-position: 0 -850px;
+	text-indent: -9999px;
+	float: left;
+}
+.s-box .sub{
+	background: url(../img/icon.png) no-repeat;
+}
+.person .lay-bd {
+	background: #fff;
+	padding: 5px 10px 0 10px;
+}
+.per-sel {
+	border-bottom: 1px dashed #999;
+	padding-bottom: 5px;
+}
+.per-sel ul {
+	float: left;
+	width: 880px;
+}
+.per-sel .cy {
+	background-position: 10px -698px;
+}
+.per-sel h2 {
+	width: 40px;
+	height: 24px;
+	float: left;
+	text-indent: -9999px;
+}
+.per-sel ul {
+	float: left;
+	width: 880px;
+}
+.per-sel li {
+	float: left;
+	width: 110px;
+	height: 20px;
+	line-height: 20px;
+	padding: 2px 0;
+	overflow: hidden;
+}
+.check {
+	vertical-align: -3px;
+	margin-right: 4px;
+}
+.per-ticket {
+	width: 100%;
+	border: 1px solid #999;
+	margin-top: 10px;
+	background: #eef1f8;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.per-ticket th {
+	height: 28px;
+	line-height: 28px;
+	text-align: left;
+	padding-left: 5px;
+	font-weight: 400;
+	border-bottom: 1px solid #999;
+	background-position: 0 -200px;
+}
+.per-ticket th{
+	background: url(../img/bg.png) repeat-x;
+}
+.per-ticket td {
+	height: 30px;
+	line-height: 30px;
+	padding: 4px 0 4px 5px;
+}
+/* 乘客信息结束 */
+.lay-btn {
+	height: 30px;
+	padding: 10px 0;
+	text-align: center;
+}
+.btn92, .btn92s, .btn72, .btn72-no, .btn122, .btn122s, .btn200, .btn200s, .btn-login, .btn30, .btn30s, .btn-disabled {
+	display: inline-block;
+	text-align: center;
+	background: url(../img/bg_btn.png) repeat-x;
+	color: #333;
+	border-radius: 4px;
+}
+.btn92, .btn122, .btn200, .btn30 {
+	height: 28px;
+	line-height: 28px;
+	border: 1px solid #ccc;
+	background-position: 0 -100px;
+}
+.btn92 {
+	width: 90px;
+}
+.lay-btn a {
+	margin: 0 10px;
+}
+.btn92s {
+	width: 92px;
+}
+.btn92s, .btn122s, .btn200s, .btn30s {
+	height: 30px;
+	line-height: 30px;
+	background-position: 0 0;
+	color: #fff;
+}
+.tips-txt {
+	background: #fffbe5;
+	border: 1px solid #fbd800;
+	padding: 5px;
+	border-radius: 5px;
+}
+.tips-txt h2 {
+	height: 25px;
+	line-height: 25px;
+	font-size: 14px;
+}
+.tips-txt p {
+	line-height: 20px;
+	color: #666;
+}
+.msg{
+	display: none;
+	font: 1.22em/30px sans-serif;
+	text-align: center;
+	margin-bottom: -22px;
+}
