@@ -237,7 +237,7 @@
 										</select>
 									</td>
 									<td>
-										<select id="seatType_1">
+										<select class="seatType_1">
 											<% if(data[0].businessClass != '--' && data[0].businessClass != '无'){ %>
 												<option date-zuo="" value="<%= data[0].p1 %>,商务座,businessClass"  date-price="<%= data[0].p1 %>">
 													商务座（<%= data[0].p1 %>）
@@ -294,7 +294,7 @@
 										</select>
 									</td>
 									<td>
-										<div class="pos-rel"><input id="passenger_name_1"
+										<div class="pos-rel"><input class="passenger_name_1"
 												class="inptxt w110" value="" size="12" maxlength="20" readonly="readonly"
 												style="color: rgb(153, 153, 153); border: 1px solid rgb(207, 205, 199);"
 												title="不允许修改乘车人信息">
